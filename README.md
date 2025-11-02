@@ -1,41 +1,46 @@
 # 💬 ChitChat - Real-time Messaging App
+![Landing Page](assets/firstpage.png)
 
 A modern, full-stack real-time chat application built with the MERN stack, featuring Google OAuth authentication, image sharing, and a beautiful dark-themed UI.
 
-![ChitChat](https://img.shields.io/badge/Status-Active-success)
-![License](https://img.shields.io/badge/License-MIT-blue)
-![Node](https://img.shields.io/badge/Node-v18+-green)
+
+
 
 ## ✨ Features
-
 ### 🔐 Authentication
+![Profile Page](assets/auth_page.png)
 - **Google OAuth 2.0** - Secure, one-click authentication
 - **JWT Tokens** - Secure session management
 - **Protected Routes** - Client and server-side route protection
 
 ### 💬 Real-time Messaging
+![Chat Page](assets/chatpage.png)
 - **Instant Messaging** - Real-time chat powered by Socket.io
 - **Online Status** - See who's online in real-time
 - **Message History** - Persistent message storage in MongoDB
 - **Typing Indicators** - Know when someone is typing
 
 ### 📸 Media Sharing
+![Chat Page](assets/img_share.png)
 - **Image Upload** - Share images in chat (max 5MB)
 - **Cloudinary Integration** - Fast, reliable image hosting with CDN
 - **Image Preview** - Preview images before sending
 - **Profile Pictures** - Custom profile picture upload
 
+
+### ⚙️ Settings & Customization
+![Profile Page](assets/profile_page.png)
+- **Update Profile Picture** - Upload custom profile pictures
+- **Change Display Name** - Update your username anytime
+- **User Sidebar** - Quick access to all conversations
+
 ### 🎨 User Experience
+![Profile Page](assets/emoji.png)
 - **Dark Theme** - Modern, eye-friendly dark UI
 - **Emoji Picker** - 16 popular emojis to express yourself
 - **Responsive Design** - Works seamlessly on desktop and mobile
 - **Smooth Animations** - Polished transitions and interactions
 - **Toast Notifications** - Real-time feedback for user actions
-
-### ⚙️ Settings & Customization
-- **Update Profile Picture** - Upload custom profile pictures
-- **Change Display Name** - Update your username anytime
-- **User Sidebar** - Quick access to all conversations
 
 ## 🛠️ Tech Stack
 
