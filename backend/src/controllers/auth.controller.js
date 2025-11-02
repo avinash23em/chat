@@ -1,6 +1,7 @@
 import User from "../models/user.model.js"
 import bcrypt from "bcryptjs"
 import {generateToken} from "../lib/util.js"
+import cloudinary from "../lib/cloudinary.js"
 
 export const signup= async (req,res)=>{
     const{fullName,email,password}=req.body
@@ -76,21 +77,35 @@ try {
   }
 };
 
-export const updateProfile=async(req,res)=>{
-     try {
-    const { profilePic } = req.body;
+export const updateProfile = async (req, res) => {
+  try {
+    const { profilepic, fullName } = req.body;
     const userId = req.user._id;
 
-    if (!profilePic) {
-      return res.status(400).json({ message: "Profile pic is required" });
+    const updateData = {};
+
+    // Handle profile picture update
+    if (profilepic) {
+      // Check if it's an emoji (single character or short string)
+      if (profilepic.length <= 5) {
+        updateData.profilepic = profilepic;
+      } else {
+        // It's a base64 image, upload to Cloudinary
+        const uploadResponse = await cloudinary.uploader.upload(profilepic);
+        updateData.profilepic = uploadResponse.secure_url;
+      }
     }
 
-    const uploadResponse = await cloudinary.uploader.upload(profilePic);
+    // Handle full name update
+    if (fullName) {
+      updateData.fullName = fullName;
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { profilePic: uploadResponse.secure_url },
+      updateData,
       { new: true }
-    );
+    ).select("-password");
 
     res.status(200).json(updatedUser);
   } catch (error) {
@@ -106,4 +121,17 @@ export const checkAuth=async (req,res)=>{
     console.log("Error in checkAuth controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
-}
+};
+
+export const googleCallback = async (req, res) => {
+  try {
+    // Generate JWT token for the authenticated user
+    generateToken(req.user._id, res);
+    
+    // Redirect to frontend with success
+    res.redirect(`${process.env.CLIENT_URL}?auth=success`);
+  } catch (error) {
+    console.log("Error in googleCallback controller", error.message);
+    res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
+  }
+};
